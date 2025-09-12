@@ -70,6 +70,25 @@ app_license = "mit"
 # automatically create page for each record of this doctype
 # website_generators = ["Web Page"]
 
+# Fixtures
+# --------
+
+# Sync fixtures on app installation/migration
+fixtures = [
+	{
+		"doctype": "Role",
+		"filters": [
+			["name", "in", ["Invoice Manager", "Invoice Reviewer"]]
+		]
+	},
+	{
+		"doctype": "Workflow",
+		"filters": [
+			["name", "=", "Invoice Processing Workflow"]
+		]
+	}
+]
+
 # Jinja
 # ----------
 

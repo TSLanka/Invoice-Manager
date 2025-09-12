@@ -1,0 +1,162 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2025-09-12 12:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "submitted_by",
+  "submitted_on",
+  "column_break_3",
+  "status",
+  "section_break_6",
+  "invoice_file",
+  "invoice_items_section",
+  "invoice_items",
+  "supplier_matching_section",
+  "supplier_matches",
+  "review_section",
+  "invoice_reviews"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "IPJ-.YYYY.-",
+   "reqd": 1
+  },
+  {
+   "fieldname": "submitted_by",
+   "fieldtype": "Link",
+   "label": "Submitted By",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "submitted_on",
+   "fieldtype": "Datetime",
+   "label": "Submitted On",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nPending Review\nApproved\nRejected\nPosted",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break",
+   "label": "Invoice Details"
+  },
+  {
+   "fieldname": "invoice_file",
+   "fieldtype": "Attach",
+   "label": "Invoice File",
+   "reqd": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "invoice_items_section",
+   "fieldtype": "Section Break",
+   "label": "Invoice Items"
+  },
+  {
+   "fieldname": "invoice_items",
+   "fieldtype": "Table",
+   "label": "Invoice Items",
+   "options": "Invoice Item"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "supplier_matching_section",
+   "fieldtype": "Section Break",
+   "label": "Supplier Matching"
+  },
+  {
+   "fieldname": "supplier_matches",
+   "fieldtype": "Table",
+   "label": "Supplier Matches",
+   "options": "Supplier Match"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "review_section",
+   "fieldtype": "Section Break",
+   "label": "Review History"
+  },
+  {
+   "fieldname": "invoice_reviews",
+   "fieldtype": "Table",
+   "label": "Invoice Reviews",
+   "options": "Invoice Review"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-09-12 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Invoice Manager",
+ "name": "Invoice Processing Job",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "naming_series",
+ "track_changes": 1
+}

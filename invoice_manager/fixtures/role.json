@@ -1,0 +1,14 @@
+[
+ {
+  "doctype": "Role",
+  "name": "Invoice Manager",
+  "role_name": "Invoice Manager",
+  "desk_access": 1
+ },
+ {
+  "doctype": "Role",
+  "name": "Invoice Reviewer",
+  "role_name": "Invoice Reviewer",
+  "desk_access": 1
+ }
+]

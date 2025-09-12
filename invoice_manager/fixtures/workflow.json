@@ -1,0 +1,89 @@
+[
+ {
+  "doctype": "Workflow",
+  "name": "Invoice Processing Workflow",
+  "document_type": "Invoice Processing Job",
+  "is_active": 1,
+  "workflow_name": "Invoice Processing Workflow",
+  "workflow_state_field": "status",
+  "states": [
+   {
+    "state": "Draft",
+    "doc_status": "0",
+    "allow_edit": "Accounts User",
+    "update_field": "status",
+    "update_value": "Draft"
+   },
+   {
+    "state": "Pending Review",
+    "doc_status": "1",
+    "allow_edit": "Accounts Manager",
+    "update_field": "status",
+    "update_value": "Pending Review"
+   },
+   {
+    "state": "Approved",
+    "doc_status": "1",
+    "allow_edit": "Accounts Manager",
+    "update_field": "status",
+    "update_value": "Approved"
+   },
+   {
+    "state": "Rejected",
+    "doc_status": "2",
+    "allow_edit": "System Manager",
+    "update_field": "status",
+    "update_value": "Rejected"
+   },
+   {
+    "state": "Posted",
+    "doc_status": "1",
+    "allow_edit": "System Manager",
+    "update_field": "status",
+    "update_value": "Posted"
+   }
+  ],
+  "transitions": [
+   {
+    "state": "Draft",
+    "action": "Submit for Review",
+    "next_state": "Pending Review",
+    "allowed": "Accounts User",
+    "condition": "",
+    "allow_self_approval": 0
+   },
+   {
+    "state": "Pending Review",
+    "action": "Approve",
+    "next_state": "Approved",
+    "allowed": "Accounts Manager",
+    "condition": "",
+    "allow_self_approval": 0
+   },
+   {
+    "state": "Pending Review",
+    "action": "Reject",
+    "next_state": "Rejected",
+    "allowed": "Accounts Manager",
+    "condition": "",
+    "allow_self_approval": 0
+   },
+   {
+    "state": "Approved",
+    "action": "Post to ERP",
+    "next_state": "Posted",
+    "allowed": "System Manager",
+    "condition": "",
+    "allow_self_approval": 0
+   },
+   {
+    "state": "Approved",
+    "action": "Send Back for Review",
+    "next_state": "Pending Review",
+    "allowed": "System Manager",
+    "condition": "",
+    "allow_self_approval": 0
+   }
+  ]
+ }
+]
