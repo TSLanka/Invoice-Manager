@@ -27,6 +27,30 @@ Invoice Manager is a Frappe/ERPNext application designed to streamline invoice p
 - Data sanitization and validation
 - Comprehensive audit logging
 
+## Phase 5: Advanced OCR Capabilities
+
+**🚀 New in Phase 5**: Enhanced invoice processing with comprehensive OCR integration
+
+### Key Enhancements
+- **PaddleOCR Integration**: Industry-leading OCR accuracy for both digital and scanned invoices
+- **Intelligent Data Extraction**: Automated parsing of key invoice fields (totals, dates, line items)
+- **Supplier Matching**: Fuzzy matching against ERPNext Supplier database with confidence scoring
+- **Table Extraction**: Advanced line item detection using Camelot and custom heuristics
+- **Flexible Deployment**: Local processing or scalable OCR service architecture
+
+### Processing Pipeline
+1. **Smart PDF Analysis**: Automatically detects searchable vs scanned documents
+2. **Multi-Modal Extraction**: Direct text extraction or OCR-based processing as needed
+3. **Structured Parsing**: Regex-based extraction with fallback mechanisms
+4. **Verification Workflow**: Human-in-the-loop validation with confidence indicators
+5. **Seamless Integration**: Direct posting to ERPNext Purchase Invoices
+
+### Deployment Options
+- **Option A**: Local processing with OCR dependencies in Frappe environment
+- **Option B**: Dedicated OCR service with Docker-based scaling (recommended for production)
+
+> 📖 **Detailed Documentation**: See [docs/phase-5-ocr.md](docs/phase-5-ocr.md) for comprehensive implementation details, installation requirements, and deployment guides.
+
 ## Installation
 
 ### Prerequisites
