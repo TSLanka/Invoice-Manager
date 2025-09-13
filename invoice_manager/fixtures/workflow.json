@@ -2,66 +2,94 @@
  {
   "doctype": "Workflow",
   "name": "Invoice Processing Workflow",
+  "workflow_name": "Invoice Processing Workflow",
   "document_type": "Invoice Processing Job",
   "is_active": 1,
-  "workflow_name": "Invoice Processing Workflow",
+  "send_email_alert": 1,
   "workflow_state_field": "status",
   "states": [
    {
-    "state": "Draft",
-    "doc_status": "0",
-    "allow_edit": "Accounts User\nAccounts Manager\nSystem Manager"
+	"state": "Draft",
+	"doc_status": "0",
+	"allow_edit": "Accounts User",
+	"is_optional_state": 0,
+	"next_action_email_template": "",
+	"message": ""
    },
    {
-    "state": "Pending Review",
-    "doc_status": "1",
-    "allow_edit": "Accounts Manager\nSystem Manager"
+	"state": "Pending Review",
+	"doc_status": "0",
+	"allow_edit": "Accounts Manager",
+	"is_optional_state": 0,
+	"next_action_email_template": "",
+	"message": "Invoice is pending review by Accounts Manager"
    },
    {
-    "state": "Approved",
-    "doc_status": "1",
-    "allow_edit": "Accounts Manager\nSystem Manager"
+	"state": "Approved",
+	"doc_status": "1",
+	"allow_edit": "System Manager",
+	"is_optional_state": 0,
+	"next_action_email_template": "",
+	"message": "Invoice has been approved and can be posted"
    },
+	{
+	 "state": "Posted",
+	 "doc_status": "1",
+	 "allow_edit": "System Manager",
+	 "is_optional_state": 0,
+	 "next_action_email_template": "",
+	 "message": "Invoice has been posted to ERPNext"
+	},
    {
-    "state": "Rejected",
-    "doc_status": "2",
-    "allow_edit": "System Manager"
-   },
-   {
-    "state": "Posted",
-    "doc_status": "1",
-    "allow_edit": "System Manager"
+	"state": "Rejected",
+	"doc_status": "0",
+	"allow_edit": "Accounts User",
+	"is_optional_state": 0,
+	"next_action_email_template": "",
+	"message": "Invoice has been rejected"
    }
   ],
   "transitions": [
    {
-    "state": "Pending Review",
-    "action": "Approve",
-    "next_state": "Approved",
-    "allowed": "Accounts Manager\nSystem Manager",
-    "allow_self_approval": 0
+	"state": "Draft",
+	"action": "Submit for Review",
+	"next_state": "Pending Review",
+	"allowed": "Accounts User",
+	"allow_self_approval": 0,
+	"condition": ""
    },
    {
-    "state": "Pending Review",
-    "action": "Reject",
-    "next_state": "Rejected",
-    "allowed": "Accounts Manager\nSystem Manager",
-    "allow_self_approval": 0
+	"state": "Pending Review",
+	"action": "Approve",
+	"next_state": "Approved",
+	"allowed": "Accounts Manager",
+	"allow_self_approval": 0,
+	"condition": ""
    },
    {
-    "state": "Approved",
-    "action": "Post to ERP",
-    "next_state": "Posted",
-    "allowed": "System Manager",
-    "allow_self_approval": 0
+	"state": "Pending Review",
+	"action": "Reject",
+	"next_state": "Rejected",
+	"allowed": "Accounts Manager",
+	"allow_self_approval": 0,
+	"condition": ""
    },
    {
-    "state": "Approved",
-    "action": "Send Back for Review",
-    "next_state": "Pending Review",
-    "allowed": "System Manager",
-    "allow_self_approval": 0
-   }
+	"state": "Rejected",
+	"action": "Resubmit for Review",
+	"next_state": "Pending Review",
+	"allowed": "Accounts User",
+	"allow_self_approval": 0,
+	"condition": ""
+   },
+	{
+	 "state": "Approved",
+	 "action": "Post to ERPNext",
+	 "next_state": "Posted",
+	 "allowed": "System Manager",
+	 "allow_self_approval": 0,
+	 "condition": ""
+	}
   ]
  }
 ]
