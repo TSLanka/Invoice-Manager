@@ -13,12 +13,19 @@ class InvoiceProcessingJob(Document):
 	
 	def before_insert(self):
 		"""Set default values before inserting the document."""
+		self.set_naming_series()
 		self.set_submitted_details()
 	
 	def validate(self):
 		"""Validate the document before saving."""
+		self.set_naming_series()
 		self.set_submitted_details()
 		self.validate_status_transition()
+	
+	def set_naming_series(self):
+		"""Set naming series if not already set."""
+		if not self.naming_series:
+			self.naming_series = "IPJ-.YYYY.-"
 	
 	def set_submitted_details(self):
 		"""Set submitted_by and submitted_on if not already set."""

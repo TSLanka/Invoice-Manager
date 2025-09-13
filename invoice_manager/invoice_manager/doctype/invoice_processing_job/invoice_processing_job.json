@@ -23,6 +23,7 @@
  ],
  "fields": [
   {
+   "default": "IPJ-.YYYY.-",
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Naming Series",
