@@ -8,6 +8,7 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
+  "amended_from",
   "submitted_by",
   "submitted_on",
   "column_break_3",
@@ -29,6 +30,15 @@
    "label": "Naming Series",
    "options": "IPJ-.YYYY.-",
    "reqd": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Invoice Processing Job",
+   "print_hide": 1,
+   "read_only": 1
   },
   {
    "fieldname": "submitted_by",
@@ -159,5 +169,6 @@
  "sort_order": "DESC",
  "states": [],
  "title_field": "naming_series",
- "track_changes": 1
+ "track_changes": 1,
+ "allow_copy": 1
 }

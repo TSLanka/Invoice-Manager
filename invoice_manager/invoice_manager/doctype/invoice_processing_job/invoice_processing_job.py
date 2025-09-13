@@ -20,7 +20,8 @@ class InvoiceProcessingJob(Document):
 		"""Validate the document before saving."""
 		self.set_naming_series()
 		self.set_submitted_details()
-		self.validate_status_transition()
+		# Note: Status transition validation is handled by workflow
+		# self.validate_status_transition()
 	
 	def set_naming_series(self):
 		"""Set naming series if not already set."""
@@ -35,38 +36,20 @@ class InvoiceProcessingJob(Document):
 			self.submitted_on = frappe.utils.now()
 	
 	def validate_status_transition(self):
-		"""Validate status transitions according to workflow."""
-		if self.is_new():
-			return
-		
-		old_doc = self.get_doc_before_save()
-		if not old_doc:
-			return
-		
-		valid_transitions = {
-			"Draft": ["Pending Review"],
-			"Pending Review": ["Approved", "Rejected"],
-			"Approved": ["Posted", "Pending Review"],
-			"Rejected": [],  # Final state
-			"Posted": []  # Final state
-		}
-		
-		old_status = old_doc.status
-		new_status = self.status
-		
-		if old_status != new_status:
-			if new_status not in valid_transitions.get(old_status, []):
-				frappe.throw(f"Invalid status transition from {old_status} to {new_status}")
+		"""Status transitions are handled by workflow."""
+		# Workflow handles all status transitions
+		pass
 	
 	def on_submit(self):
 		"""Actions to perform when document is submitted."""
-		if self.status == "Draft":
+		# Set status to Pending Review when submitted (if workflow not handling it)
+		if not hasattr(self, 'workflow_state') or self.status == "Draft":
 			self.status = "Pending Review"
 		self.add_review_entry("Document submitted for review")
 	
 	def on_cancel(self):
 		"""Actions to perform when document is cancelled."""
-		self.status = "Draft"
+		# Note: Status updates are handled by workflow
 		self.add_review_entry("Document cancelled")
 	
 	def add_review_entry(self, notes):

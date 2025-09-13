@@ -10,62 +10,42 @@
    {
     "state": "Draft",
     "doc_status": "0",
-    "allow_edit": "Accounts User",
-    "update_field": "status",
-    "update_value": "Draft"
+    "allow_edit": "Accounts User\nAccounts Manager\nSystem Manager"
    },
    {
     "state": "Pending Review",
     "doc_status": "1",
-    "allow_edit": "Accounts Manager",
-    "update_field": "status",
-    "update_value": "Pending Review"
+    "allow_edit": "Accounts Manager\nSystem Manager"
    },
    {
     "state": "Approved",
     "doc_status": "1",
-    "allow_edit": "Accounts Manager",
-    "update_field": "status",
-    "update_value": "Approved"
+    "allow_edit": "Accounts Manager\nSystem Manager"
    },
    {
     "state": "Rejected",
     "doc_status": "2",
-    "allow_edit": "System Manager",
-    "update_field": "status",
-    "update_value": "Rejected"
+    "allow_edit": "System Manager"
    },
    {
     "state": "Posted",
     "doc_status": "1",
-    "allow_edit": "System Manager",
-    "update_field": "status",
-    "update_value": "Posted"
+    "allow_edit": "System Manager"
    }
   ],
   "transitions": [
    {
-    "state": "Draft",
-    "action": "Submit for Review",
-    "next_state": "Pending Review",
-    "allowed": "Accounts User",
-    "condition": "",
-    "allow_self_approval": 0
-   },
-   {
     "state": "Pending Review",
     "action": "Approve",
     "next_state": "Approved",
-    "allowed": "Accounts Manager",
-    "condition": "",
+    "allowed": "Accounts Manager\nSystem Manager",
     "allow_self_approval": 0
    },
    {
     "state": "Pending Review",
     "action": "Reject",
     "next_state": "Rejected",
-    "allowed": "Accounts Manager",
-    "condition": "",
+    "allowed": "Accounts Manager\nSystem Manager",
     "allow_self_approval": 0
    },
    {
@@ -73,7 +53,6 @@
     "action": "Post to ERP",
     "next_state": "Posted",
     "allowed": "System Manager",
-    "condition": "",
     "allow_self_approval": 0
    },
    {
@@ -81,7 +60,6 @@
     "action": "Send Back for Review",
     "next_state": "Pending Review",
     "allowed": "System Manager",
-    "condition": "",
     "allow_self_approval": 0
    }
   ]
