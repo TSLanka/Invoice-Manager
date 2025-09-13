@@ -57,10 +57,12 @@ Frappe-integrated processing client:
 #### Schema Extensions
 Enhanced Invoice Processing Job DocType with:
 - `ocr_raw_text` - Raw OCR output for debugging
-- `parsed_json` - Structured extraction results
-- `line_items` - Child table for itemized billing
+- `parsed_json` - Structured extraction results  
+- `line_items` - Child table for itemized billing (uses existing Invoice Item)
 - `extraction_version` - Processing pipeline version
 - `extraction_log` - Detailed processing logs
+
+> 📋 **Migration Guide**: See [migration-phase-5.md](migration-phase-5.md) for detailed schema changes and upgrade instructions.
 
 ### Data Flow
 

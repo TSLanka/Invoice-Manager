@@ -16,6 +16,12 @@
   "status",
   "section_break_6",
   "invoice_file",
+  "ocr_extraction_section",
+  "ocr_raw_text",
+  "parsed_json",
+  "column_break_ocr",
+  "extraction_version",
+  "extraction_log",
   "invoice_items_section",
   "invoice_items",
   "supplier_matching_section",
@@ -81,6 +87,44 @@
    "fieldtype": "Attach",
    "label": "Invoice File",
    "reqd": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "ocr_extraction_section",
+   "fieldtype": "Section Break",
+   "label": "OCR Extraction Data"
+  },
+  {
+   "fieldname": "ocr_raw_text",
+   "fieldtype": "Long Text",
+   "label": "Raw OCR Text",
+   "description": "Complete text extracted from the invoice via OCR",
+   "read_only": 1
+  },
+  {
+   "fieldname": "parsed_json",
+   "fieldtype": "JSON",
+   "label": "Parsed Data",
+   "description": "Structured data extracted from the invoice in JSON format",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_ocr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "extraction_version",
+   "fieldtype": "Data",
+   "label": "Extraction Version",
+   "description": "Version of the extraction pipeline used",
+   "read_only": 1
+  },
+  {
+   "fieldname": "extraction_log",
+   "fieldtype": "Long Text",
+   "label": "Extraction Log",
+   "description": "Detailed log of the extraction process for debugging",
+   "read_only": 1
   },
   {
    "collapsible": 1,
