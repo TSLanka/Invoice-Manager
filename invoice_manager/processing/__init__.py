@@ -6,7 +6,7 @@ for automated invoice data extraction.
 
 Modules:
 - pipeline: Framework-agnostic OCR processing functions
-- client: Frappe integration layer (to be implemented)
+- client: Frappe integration layer for background jobs and API endpoints
 """
 
 from .pipeline import (
@@ -25,6 +25,19 @@ from .pipeline import (
     ParsingError
 )
 
+# Import client functions for Frappe integration
+try:
+    from .client import (
+        enqueue_extraction_job,
+        process_extraction_job,
+        get_extraction_status,
+        trigger_extraction
+    )
+    HAS_CLIENT = True
+except ImportError:
+    # Handle case where Frappe is not available
+    HAS_CLIENT = False
+
 __all__ = [
     'check_dependencies',
     'detect_pdf_type', 
@@ -40,3 +53,11 @@ __all__ = [
     'ImageProcessingError',
     'ParsingError'
 ]
+
+if HAS_CLIENT:
+    __all__.extend([
+        'enqueue_extraction_job',
+        'process_extraction_job', 
+        'get_extraction_status',
+        'trigger_extraction'
+    ])

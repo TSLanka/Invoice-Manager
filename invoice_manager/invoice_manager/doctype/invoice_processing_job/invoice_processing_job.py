@@ -123,3 +123,56 @@ class InvoiceProcessingJob(Document):
 			frappe.throw(f"Failed to update status: {e}")
 
 		frappe.msgprint("Invoice has been posted to ERP", indicator="green")
+
+	@frappe.whitelist()
+	def re_run_extraction(self):
+		"""Re-run OCR extraction for this invoice."""
+		# Import here to avoid circular imports
+		from invoice_manager.processing.client import trigger_extraction
+		
+		# Check permissions
+		if not frappe.has_permission("Invoice Processing Job", "write", self.name):
+			frappe.throw("Insufficient permissions to re-run extraction")
+		
+		# Validate current status
+		if self.status == "Posted":
+			frappe.throw("Cannot re-run extraction for posted invoices")
+		
+		if not self.invoice_file:
+			frappe.throw("No invoice file attached to process")
+		
+		# Clear existing extraction data
+		self.ocr_raw_text = None
+		self.parsed_json = None
+		self.extraction_version = None
+		self.extraction_log = f"Re-extraction requested by {frappe.session.user} at {frappe.utils.now()}"
+		
+		# Clear supplier matches
+		self.supplier_matches = []
+		
+		# Save the document
+		self.save(ignore_permissions=True)
+		
+		# Trigger the extraction
+		result = trigger_extraction(self.name)
+		
+		if result.get("success"):
+			frappe.msgprint("OCR extraction has been started. Please refresh the page to see updates.", 
+							indicator="blue")
+		else:
+			frappe.throw(f"Failed to start extraction: {result.get('message', 'Unknown error')}")
+		
+		return result
+
+	def after_insert(self):
+		"""Actions to perform after document is inserted."""
+		# Auto-trigger OCR extraction for new documents with files
+		if self.invoice_file and self.status == "Draft":
+			try:
+				from invoice_manager.processing.client import enqueue_extraction_job
+				enqueue_extraction_job(self.name, priority="medium")
+				frappe.msgprint("OCR extraction started automatically", indicator="blue")
+			except Exception as e:
+				frappe.logger().error(f"Failed to auto-trigger extraction for {self.name}: {str(e)}")
+				# Don't fail the insert if OCR fails
+				pass
